@@ -1,0 +1,263 @@
+[2026-02-16 01:56:00,117][root][INFO] - 📍 项目根目录定位: /tmp/pycharm_project_982
+[2026-02-16 01:56:00,118][root][INFO] - ✅ 强制使用单 GPU 训练
+[2026-02-16 01:56:00,118][root][INFO] - 检测到 1 个CUDA设备可用
+[2026-02-16 01:56:00,118][root][INFO] - 使用GPU进行训练
+[2026-02-16 01:56:00,119][root][INFO] - 📦 使用数据集: CIC-IDS-2017
+[2026-02-16 01:56:00,119][root][INFO] - 使用过滤 excluded_classes 后的 flow 数据文件: /tmp/pycharm_project_982/processed_data/CIC-IDS-2017-session-srcIP_srcPort_dstIP_dstPort_proto/all_embedded_flow.filtered_port_53__svc_dns.filtered_Heartbleed_Infiltration.csv
+[2026-02-16 01:56:00,119][root][INFO] - 使用 merged_classes 后的 flow 数据文件: /tmp/pycharm_project_982/processed_data/CIC-IDS-2017-session-srcIP_srcPort_dstIP_dstPort_proto/all_embedded_flow.filtered_port_53__svc_dns.filtered_Heartbleed_Infiltration.merged_Web_Attack.csv
+[2026-02-16 01:56:00,119][root][INFO] - 数据模块 setup 阶段: fit
+[2026-02-16 01:56:00,119][root][INFO] - 读取数据 从 /tmp/pycharm_project_982/processed_data/CIC-IDS-2017-session-srcIP_srcPort_dstIP_dstPort_proto/all_embedded_flow.filtered_port_53__svc_dns.filtered_Heartbleed_Infiltration.merged_Web_Attack.csv...
+[2026-02-16 01:56:00,119][root][INFO] - 文件大小: 4.83 GB
+[2026-02-16 01:56:00,128][root][INFO] - 检测到 381 列，开始分块读取...
+[2026-02-16 01:57:12,195][root][INFO] - 读取数据 完成! 数据形状: (908984, 381)
+[2026-02-16 01:57:12,219][root][INFO] - 检查 fit 阶段数据质量（仅检查 cfg 中引用的列）...
+[2026-02-16 01:57:12,304][root][WARNING] - ⚠️ 以下使用到的特征列包含 NaN：
+[2026-02-16 01:57:12,304][root][WARNING] -   x509.cert0.certificate.issuer: 781998 个 NaN (86.03%)
+[2026-02-16 01:57:12,304][root][WARNING] -   dns.query: 566008 个 NaN (62.27%)
+[2026-02-16 01:57:12,304][root][WARNING] -   ssl.server_name: 695546 个 NaN (76.52%)
+[2026-02-16 01:57:12,304][root][WARNING] -   x509.cert0.certificate.subject: 781998 个 NaN (86.03%)
+[2026-02-16 01:57:12,304][root][INFO] - fit 阶段数据质量检查完成（仅检查 cfg 使用的列）
+[2026-02-16 01:57:12,304][root][INFO] - 读取数据 从 /tmp/pycharm_project_982/processed_data/CIC-IDS-2017-session-srcIP_srcPort_dstIP_dstPort_proto/all_split_session.csv...
+[2026-02-16 01:57:12,304][root][INFO] - 文件大小: 0.22 GB
+[2026-02-16 01:57:12,307][root][INFO] - 检测到 55 列，开始分块读取...
+[2026-02-16 01:57:14,645][root][INFO] - 读取数据 完成! 数据形状: (636607, 55)
+[2026-02-16 01:57:14,649][root][INFO] - 数据划分模式：flow
+[2026-02-16 01:57:14,650][root][INFO] - 使用基于 flow_df 的逐流划分策略 | 随机打乱: False
+[2026-02-16 01:57:14,650][root][INFO] - 执行严格时序切片划分 (Sequential Split - No Shuffle)...
+[2026-02-16 01:57:14,656][root][INFO] -   Train: 1499082958.598308 -> 1499449906.904816
+[2026-02-16 01:57:14,656][root][INFO] -   Test : 1499450099.842705 -> 1499457759.567285
+[2026-02-16 01:57:14,656][root][INFO] - >>>> 创建训练集MultiviewFlowDataset ...
+[2026-02-16 01:57:14,659][root][INFO] - 启用序列特征视图
+[2026-02-16 01:57:14,659][root][INFO] - 文本特征未配置，跳过该视图
+[2026-02-16 01:57:14,659][root][INFO] - 域名嵌入特征未配置或为空，跳过该视图
+[2026-02-16 01:57:14,659][root][INFO] - 预处理多视图数据...
+[2026-02-16 02:06:01,715][root][INFO] - 序列特征处理完成，所有序列数据有效
+[2026-02-16 02:06:30,229][root][INFO] - [Dataset] 所有类别列（32列）：['dns.proto', 'dns.qtype', 'dns.rcode_name', 'dns.TC', 'dns.RD', 'dns.RA', 'dns.rejected', 'conn.service', 'conn.proto', 'conn.history', 'ssl.cipher', 'ssl.resumed', 'ssl.established', 'ssl.version', 'ssl.curve', 'ssl.next_protocol', 'ssl.sni_matches_cert', 'x509.cert0.certificate.key_alg', 'x509.cert0.certificate.sig_alg', 'x509.cert0.certificate.key_type', 'x509.cert0.certificate.version', 'x509.cert0.basic_constraints.ca', 'x509.cert1.certificate.key_alg', 'x509.cert1.certificate.sig_alg', 'x509.cert1.certificate.key_type', 'x509.cert1.certificate.version', 'x509.cert1.basic_constraints.ca', 'x509.cert2.certificate.key_alg', 'x509.cert2.certificate.sig_alg', 'x509.cert2.certificate.key_type', 'x509.cert2.certificate.version', 'x509.cert2.basic_constraints.ca']
+[2026-02-16 02:06:30,229][root][INFO] - [Dataset] 列名清洗后的有效类别列（32列）: ['dns_proto', 'dns_qtype', 'dns_rcode_name', 'dns_TC', 'dns_RD', 'dns_RA', 'dns_rejected', 'conn_service', 'conn_proto', 'conn_history', 'ssl_cipher', 'ssl_resumed', 'ssl_established', 'ssl_version', 'ssl_curve', 'ssl_next_protocol', 'ssl_sni_matches_cert', 'x509_cert0_certificate_key_alg', 'x509_cert0_certificate_sig_alg', 'x509_cert0_certificate_key_type', 'x509_cert0_certificate_version', 'x509_cert0_basic_constraints_ca', 'x509_cert1_certificate_key_alg', 'x509_cert1_certificate_sig_alg', 'x509_cert1_certificate_key_type', 'x509_cert1_certificate_version', 'x509_cert1_basic_constraints_ca', 'x509_cert2_certificate_key_alg', 'x509_cert2_certificate_sig_alg', 'x509_cert2_certificate_key_type', 'x509_cert2_certificate_version', 'x509_cert2_basic_constraints_ca']
+[2026-02-16 02:10:16,538][root][INFO] - 数据预处理完成
+[2026-02-16 02:10:16,542][root][INFO] - [Dataset] attack_family_classes (6): ['DoS', 'DDoS', 'PortScan', 'BruteForce', 'Bot', 'Web Attack']
+[2026-02-16 02:10:16,542][root][INFO] - [Dataset] attack_type_classes (10): ['DoS Hulk', 'DoS GoldenEye', 'DoS Slowhttptest', 'DoS slowloris', 'DDoS', 'PortScan', 'FTP-Patator', 'SSH-Patator', 'Bot', 'Web Attack']
+[2026-02-16 02:10:16,542][root][INFO] - >>>> 创建验证集MultiviewFlowDataset ...
+[2026-02-16 02:10:16,545][root][INFO] - ✅ 使用训练集的类别映射（映射大小: 32）
+[2026-02-16 02:10:16,545][root][INFO] - 启用序列特征视图
+[2026-02-16 02:10:16,545][root][INFO] - 文本特征未配置，跳过该视图
+[2026-02-16 02:10:16,545][root][INFO] - 域名嵌入特征未配置或为空，跳过该视图
+[2026-02-16 02:10:16,545][root][INFO] - 预处理多视图数据...
+[2026-02-16 02:10:46,135][root][INFO] - 序列特征处理完成，所有序列数据有效
+[2026-02-16 02:10:46,154][root][INFO] - 使用训练集的类别映射和有效类别列名，跳过独立映射计算
+[2026-02-16 02:10:48,891][root][INFO] - [Dataset] 所有类别列（32列）：['dns.proto', 'dns.qtype', 'dns.rcode_name', 'dns.TC', 'dns.RD', 'dns.RA', 'dns.rejected', 'conn.service', 'conn.proto', 'conn.history', 'ssl.cipher', 'ssl.resumed', 'ssl.established', 'ssl.version', 'ssl.curve', 'ssl.next_protocol', 'ssl.sni_matches_cert', 'x509.cert0.certificate.key_alg', 'x509.cert0.certificate.sig_alg', 'x509.cert0.certificate.key_type', 'x509.cert0.certificate.version', 'x509.cert0.basic_constraints.ca', 'x509.cert1.certificate.key_alg', 'x509.cert1.certificate.sig_alg', 'x509.cert1.certificate.key_type', 'x509.cert1.certificate.version', 'x509.cert1.basic_constraints.ca', 'x509.cert2.certificate.key_alg', 'x509.cert2.certificate.sig_alg', 'x509.cert2.certificate.key_type', 'x509.cert2.certificate.version', 'x509.cert2.basic_constraints.ca']
+[2026-02-16 02:10:48,891][root][INFO] - [Dataset] 列名清洗后的有效类别列（32列）: ['dns_proto', 'dns_qtype', 'dns_rcode_name', 'dns_TC', 'dns_RD', 'dns_RA', 'dns_rejected', 'conn_service', 'conn_proto', 'conn_history', 'ssl_cipher', 'ssl_resumed', 'ssl_established', 'ssl_version', 'ssl_curve', 'ssl_next_protocol', 'ssl_sni_matches_cert', 'x509_cert0_certificate_key_alg', 'x509_cert0_certificate_sig_alg', 'x509_cert0_certificate_key_type', 'x509_cert0_certificate_version', 'x509_cert0_basic_constraints_ca', 'x509_cert1_certificate_key_alg', 'x509_cert1_certificate_sig_alg', 'x509_cert1_certificate_key_type', 'x509_cert1_certificate_version', 'x509_cert1_basic_constraints_ca', 'x509_cert2_certificate_key_alg', 'x509_cert2_certificate_sig_alg', 'x509_cert2_certificate_key_type', 'x509_cert2_certificate_version', 'x509_cert2_basic_constraints_ca']
+[2026-02-16 02:10:48,901][root][INFO] - 验证集/测试集将等待训练集统计信息注入后再归一化。
+[2026-02-16 02:10:48,901][root][INFO] - 数据预处理完成
+[2026-02-16 02:10:48,901][root][INFO] - [Dataset] attack_family_classes (6): ['DoS', 'DDoS', 'PortScan', 'BruteForce', 'Bot', 'Web Attack']
+[2026-02-16 02:10:48,901][root][INFO] - [Dataset] attack_type_classes (10): ['DoS Hulk', 'DoS GoldenEye', 'DoS Slowhttptest', 'DoS slowloris', 'DDoS', 'PortScan', 'FTP-Patator', 'SSH-Patator', 'Bot', 'Web Attack']
+[2026-02-16 02:10:48,901][root][INFO] - >>>> 创建测试集MultiviewFlowDataset ...
+[2026-02-16 02:10:48,904][root][INFO] - ✅ 使用训练集的类别映射（映射大小: 32）
+[2026-02-16 02:10:48,905][root][INFO] - 启用序列特征视图
+[2026-02-16 02:10:48,905][root][INFO] - 文本特征未配置，跳过该视图
+[2026-02-16 02:10:48,905][root][INFO] - 域名嵌入特征未配置或为空，跳过该视图
+[2026-02-16 02:10:48,905][root][INFO] - 预处理多视图数据...
+[2026-02-16 02:12:09,539][root][INFO] - 序列特征处理完成，所有序列数据有效
+[2026-02-16 02:12:09,566][root][INFO] - 使用训练集的类别映射和有效类别列名，跳过独立映射计算
+[2026-02-16 02:12:15,221][root][INFO] - [Dataset] 所有类别列（32列）：['dns.proto', 'dns.qtype', 'dns.rcode_name', 'dns.TC', 'dns.RD', 'dns.RA', 'dns.rejected', 'conn.service', 'conn.proto', 'conn.history', 'ssl.cipher', 'ssl.resumed', 'ssl.established', 'ssl.version', 'ssl.curve', 'ssl.next_protocol', 'ssl.sni_matches_cert', 'x509.cert0.certificate.key_alg', 'x509.cert0.certificate.sig_alg', 'x509.cert0.certificate.key_type', 'x509.cert0.certificate.version', 'x509.cert0.basic_constraints.ca', 'x509.cert1.certificate.key_alg', 'x509.cert1.certificate.sig_alg', 'x509.cert1.certificate.key_type', 'x509.cert1.certificate.version', 'x509.cert1.basic_constraints.ca', 'x509.cert2.certificate.key_alg', 'x509.cert2.certificate.sig_alg', 'x509.cert2.certificate.key_type', 'x509.cert2.certificate.version', 'x509.cert2.basic_constraints.ca']
+[2026-02-16 02:12:15,222][root][INFO] - [Dataset] 列名清洗后的有效类别列（32列）: ['dns_proto', 'dns_qtype', 'dns_rcode_name', 'dns_TC', 'dns_RD', 'dns_RA', 'dns_rejected', 'conn_service', 'conn_proto', 'conn_history', 'ssl_cipher', 'ssl_resumed', 'ssl_established', 'ssl_version', 'ssl_curve', 'ssl_next_protocol', 'ssl_sni_matches_cert', 'x509_cert0_certificate_key_alg', 'x509_cert0_certificate_sig_alg', 'x509_cert0_certificate_key_type', 'x509_cert0_certificate_version', 'x509_cert0_basic_constraints_ca', 'x509_cert1_certificate_key_alg', 'x509_cert1_certificate_sig_alg', 'x509_cert1_certificate_key_type', 'x509_cert1_certificate_version', 'x509_cert1_basic_constraints_ca', 'x509_cert2_certificate_key_alg', 'x509_cert2_certificate_sig_alg', 'x509_cert2_certificate_key_type', 'x509_cert2_certificate_version', 'x509_cert2_basic_constraints_ca']
+[2026-02-16 02:12:15,234][root][INFO] - 验证集/测试集将等待训练集统计信息注入后再归一化。
+[2026-02-16 02:12:15,234][root][INFO] - 数据预处理完成
+[2026-02-16 02:12:15,235][root][INFO] - [Dataset] attack_family_classes (6): ['DoS', 'DDoS', 'PortScan', 'BruteForce', 'Bot', 'Web Attack']
+[2026-02-16 02:12:15,235][root][INFO] - [Dataset] attack_type_classes (10): ['DoS Hulk', 'DoS GoldenEye', 'DoS Slowhttptest', 'DoS slowloris', 'DDoS', 'PortScan', 'FTP-Patator', 'SSH-Patator', 'Bot', 'Web Attack']
+[2026-02-16 02:12:15,235][root][INFO] - ✅ 所有数据集的类别映射验证一致
+[2026-02-16 02:12:15,235][root][INFO] - ✅ 重新应用数值特征标准化: 验证集使用训练集的统计信息
+[2026-02-16 02:12:15,235][root][INFO] -    覆盖特征数量: 90
+[2026-02-16 02:12:46,519][root][INFO] - ✅ 重新应用数值特征标准化: 测试集使用训练集的统计信息
+[2026-02-16 02:12:46,520][root][INFO] -    覆盖特征数量: 90
+[2026-02-16 02:14:02,462][root][INFO] - 数据集划分: 训练集 636288, 验证集 90899, 测试集 181797
+[2026-02-16 02:14:02,464][root][INFO] - ==========================================
+[2026-02-16 02:14:02,540][root][INFO] - [训练集] 正样本=203842, 负样本=432446, 比例=0.3204
+[2026-02-16 02:14:02,553][root][INFO] - [验证集] 正样本=90121, 负样本=778, 比例=0.9914
+[2026-02-16 02:14:02,560][root][INFO] - 使用BERT模型: bert-base-uncased
+[2026-02-16 02:14:02,560][root][INFO] - 尝试从本地缓存加载BERT模型...
+[2026-02-16 02:14:02,710][root][INFO] - 成功从本地缓存加载BERT模型，设置为训练模式
+[2026-02-16 02:14:02,710][root][INFO] - 加载的BERT模型的每个 token 的隐藏向量维度（hidden dimension）：bert_config.hidden_size = 768
+[2026-02-16 02:14:02,710][root][INFO] - 视图启用状态: 数值特征向量必选，数据包序列=True, 文本=False, 域名嵌入=False
+[2026-02-16 02:14:02,710][root][INFO] - 跳过文本特征编码器初始化
+[2026-02-16 02:14:02,736][root][INFO] - 初始化数据包序列编码器
+[2026-02-16 02:14:02,736][root][INFO] - 域名嵌入特征长度: 0
+[2026-02-16 02:14:02,736][root][INFO] - 初始化 categorical embedding: dns_proto → 2 类别
+[2026-02-16 02:14:02,736][root][INFO] - 初始化 categorical embedding: dns_qtype → 2 类别
+[2026-02-16 02:14:02,736][root][INFO] - 初始化 categorical embedding: dns_rcode_name → 2 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: dns_TC → 2 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: dns_RD → 2 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: dns_RA → 2 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: dns_rejected → 2 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: conn_service → 19 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: conn_proto → 3 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: conn_history → 21 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: ssl_cipher → 25 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: ssl_resumed → 4 类别
+[2026-02-16 02:14:02,737][root][INFO] - 初始化 categorical embedding: ssl_established → 4 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: ssl_version → 5 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: ssl_curve → 6 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: ssl_next_protocol → 4 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: ssl_sni_matches_cert → 4 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_key_alg → 4 类别
+[2026-02-16 02:14:02,738][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_sig_alg → 7 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_key_type → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_version → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert0_basic_constraints_ca → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_key_alg → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_sig_alg → 7 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_key_type → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_version → 3 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert1_basic_constraints_ca → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_key_alg → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_sig_alg → 6 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_key_type → 4 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_version → 3 类别
+[2026-02-16 02:14:02,739][root][INFO] - 初始化 categorical embedding: x509_cert2_basic_constraints_ca → 4 类别
+[2026-02-16 02:14:02,740][root][INFO] - 数值型流特征数: 90
+[2026-02-16 02:14:02,740][root][INFO] - 总类别型特征数: 32
+[2026-02-16 02:14:02,740][root][INFO] - 总类别型特征维度: 768 * 32 = 24576
+[2026-02-16 02:14:02,740][root][INFO] - 表格数据总特征维度: 数值特征(90) + 域名嵌入(0) + 类别型特征(24576) = 24666
+[2026-02-16 02:14:02,836][root][INFO] - 初始化表格特征线性投影层: 输入维度=24666, 输出维度=768
+[2026-02-16 02:14:02,836][root][INFO] - 模型使用的视图数量: 2
+[2026-02-16 02:14:02,836][root][INFO] - 多视图融合方法: weighted_sum
+[2026-02-16 02:14:02,841][root][INFO] - [Fusion Info] 使用 weighted_sum 融合，输出维度 = bert_config.hidden_size = 768
+[2026-02-16 02:14:02,841][root][INFO] - is_malicious善意/恶意流量分类器的输入维度: 768 ，hidden_dims=[256, 128]
+[2026-02-16 02:14:02,841][root][INFO] - is_malicious善意/恶意分类器隐藏层 1: 768 -> 256
+[2026-02-16 02:14:02,842][root][INFO] - is_malicious善意/恶意分类器隐藏层 2: 256 -> 128
+[2026-02-16 02:14:02,843][root][INFO] - is_malicious 分类器结构: input_dim=768 -> hidden_dims=[256, 128] -> output_dim=1 (binary classification)
+[2026-02-16 02:14:02,843][root][INFO] - [attack_family] 启用 OVR 攻击家族分类任务，共 6 个攻击家族: ['DoS', 'DDoS', 'PortScan', 'BruteForce', 'Bot', 'Web Attack']
+[2026-02-16 02:14:02,843][root][INFO] - [attack_family] 分类器输入维度 = 768 (来自多视图融合输出)
+[2026-02-16 02:14:02,843][root][INFO] - [attack_family] 分类器隐藏层 1: 768 -> 256
+[2026-02-16 02:14:02,844][root][INFO] - [attack_family] OVR 分类器结构构建完成: input_dim=768 -> hidden_dims=[256] -> output_dim=6 (OVR, multi-label)
+[2026-02-16 02:14:02,844][root][INFO] - [is_malicious] 损失函数初始化完成: BCEWithLogitsLoss, class_weights=[1.0, 1.0]
+[2026-02-16 02:14:02,844][root][INFO] - [attack_family] OVR 损失函数初始化完成: BCEWithLogitsLoss, class_weights shape=torch.Size([6, 2])
+[2026-02-16 02:14:02,845][root][INFO] - 🛡️ 初始化漂移检测器: BNDM
+[2026-02-16 02:14:02,845][src.concept_drift_detect.adapter][INFO] - 🔍 Adapter targeted classifier: attack_family_classifier (Mode: multiclass)
+[2026-02-16 02:14:02,845][root][INFO] - 🔄 初始化增量适配器 (Mode: multiclass)
+[2026-02-16 02:14:02,845][root][INFO] - ✅ 漂移检测器就绪: {'algorithm': 'BNDM', 'drift_count_handler': 0, 'total_samples': 0, 'status': 'running', 'window_R_size': 0, 'window_W_size': 0}
+[2026-02-16 02:14:02,848][root][INFO] - 📂 模型将强制保存至: /tmp/pycharm_project_982/processed_data
+[2026-02-16 02:14:02,860][root][INFO] - 🚀 开始训练...
+[2026-02-16 02:14:07,004][root][INFO] - fit 阶段数据集已初始化，跳过重复setup
+[2026-02-16 02:14:10,965][root][INFO] - ℹ️ 训练阶段: 概念漂移仅处于监测模式 (Monitoring Only)，不会触发适应。
+[2026-02-16 03:50:56,672][root][INFO] - 
+📊 [Train End] 概念漂移监测统计:
+{
+  "algorithm": "BNDM",
+  "drift_count_handler": 2452,
+  "total_samples": 500,
+  "status": "running",
+  "window_R_size": 500,
+  "window_W_size": 500
+}
+[2026-02-16 03:50:57,052][root][INFO] - 🏁 训练完成！
+[2026-02-16 03:50:57,052][root][INFO] - ✅ 捕获到模型路径: /tmp/pycharm_project_982/processed_data/best-00-0.00-v3.ckpt
+[2026-02-16 03:51:00,295][root][INFO] - 📦 已将模型归档至: /tmp/pycharm_project_982/processed_data/best_model.ckpt
+[2026-02-16 03:51:00,295][root][INFO] - 🧪 开始测试 (加载: /tmp/pycharm_project_982/processed_data/best_model.ckpt)...
+[2026-02-16 03:51:00,864][root][INFO] - 使用BERT模型: bert-base-uncased
+[2026-02-16 03:51:00,864][root][INFO] - 尝试从本地缓存加载BERT模型...
+[2026-02-16 03:51:00,975][root][INFO] - 成功从本地缓存加载BERT模型，设置为训练模式
+[2026-02-16 03:51:00,975][root][INFO] - 加载的BERT模型的每个 token 的隐藏向量维度（hidden dimension）：bert_config.hidden_size = 768
+[2026-02-16 03:51:00,975][root][INFO] - 视图启用状态: 数值特征向量必选，数据包序列=True, 文本=False, 域名嵌入=False
+[2026-02-16 03:51:00,975][root][INFO] - 跳过文本特征编码器初始化
+[2026-02-16 03:51:00,987][root][INFO] - 初始化数据包序列编码器
+[2026-02-16 03:51:00,987][root][INFO] - 域名嵌入特征长度: 0
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_proto → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_qtype → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_rcode_name → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_TC → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_RD → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_RA → 2 类别
+[2026-02-16 03:51:00,987][root][INFO] - 初始化 categorical embedding: dns_rejected → 2 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: conn_service → 19 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: conn_proto → 3 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: conn_history → 21 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_cipher → 25 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_resumed → 4 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_established → 4 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_version → 5 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_curve → 6 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_next_protocol → 4 类别
+[2026-02-16 03:51:00,988][root][INFO] - 初始化 categorical embedding: ssl_sni_matches_cert → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_key_alg → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_sig_alg → 7 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_key_type → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert0_certificate_version → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert0_basic_constraints_ca → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_key_alg → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_sig_alg → 7 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_key_type → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert1_certificate_version → 3 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert1_basic_constraints_ca → 4 类别
+[2026-02-16 03:51:00,989][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_key_alg → 4 类别
+[2026-02-16 03:51:00,990][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_sig_alg → 6 类别
+[2026-02-16 03:51:00,990][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_key_type → 4 类别
+[2026-02-16 03:51:00,990][root][INFO] - 初始化 categorical embedding: x509_cert2_certificate_version → 3 类别
+[2026-02-16 03:51:00,990][root][INFO] - 初始化 categorical embedding: x509_cert2_basic_constraints_ca → 4 类别
+[2026-02-16 03:51:00,990][root][INFO] - 数值型流特征数: 90
+[2026-02-16 03:51:00,990][root][INFO] - 总类别型特征数: 32
+[2026-02-16 03:51:00,990][root][INFO] - 总类别型特征维度: 768 * 32 = 24576
+[2026-02-16 03:51:00,990][root][INFO] - 表格数据总特征维度: 数值特征(90) + 域名嵌入(0) + 类别型特征(24576) = 24666
+[2026-02-16 03:51:01,063][root][INFO] - 初始化表格特征线性投影层: 输入维度=24666, 输出维度=768
+[2026-02-16 03:51:01,064][root][INFO] - 模型使用的视图数量: 2
+[2026-02-16 03:51:01,064][root][INFO] - 多视图融合方法: weighted_sum
+[2026-02-16 03:51:01,069][root][INFO] - [Fusion Info] 使用 weighted_sum 融合，输出维度 = bert_config.hidden_size = 768
+[2026-02-16 03:51:01,069][root][INFO] - is_malicious善意/恶意流量分类器的输入维度: 768 ，hidden_dims=[256, 128]
+[2026-02-16 03:51:01,069][root][INFO] - is_malicious善意/恶意分类器隐藏层 1: 768 -> 256
+[2026-02-16 03:51:01,070][root][INFO] - is_malicious善意/恶意分类器隐藏层 2: 256 -> 128
+[2026-02-16 03:51:01,070][root][INFO] - is_malicious 分类器结构: input_dim=768 -> hidden_dims=[256, 128] -> output_dim=1 (binary classification)
+[2026-02-16 03:51:01,070][root][INFO] - [attack_family] 启用 OVR 攻击家族分类任务，共 6 个攻击家族: ['DoS', 'DDoS', 'PortScan', 'BruteForce', 'Bot', 'Web Attack']
+[2026-02-16 03:51:01,070][root][INFO] - [attack_family] 分类器输入维度 = 768 (来自多视图融合输出)
+[2026-02-16 03:51:01,070][root][INFO] - [attack_family] 分类器隐藏层 1: 768 -> 256
+[2026-02-16 03:51:01,071][root][INFO] - [attack_family] OVR 分类器结构构建完成: input_dim=768 -> hidden_dims=[256] -> output_dim=6 (OVR, multi-label)
+[2026-02-16 03:51:01,071][root][INFO] - [is_malicious] 损失函数初始化完成: BCEWithLogitsLoss, class_weights=[1.0, 1.0]
+[2026-02-16 03:51:01,071][root][INFO] - [attack_family] OVR 损失函数初始化完成: BCEWithLogitsLoss, class_weights shape=torch.Size([6, 2])
+[2026-02-16 03:51:01,072][root][INFO] - 🛡️ 初始化漂移检测器: BNDM
+[2026-02-16 03:51:01,072][src.concept_drift_detect.adapter][INFO] - 🔍 Adapter targeted classifier: attack_family_classifier (Mode: multiclass)
+[2026-02-16 03:51:01,072][root][INFO] - 🔄 初始化增量适配器 (Mode: multiclass)
+[2026-02-16 03:51:01,602][root][INFO] - test 阶段数据集已初始化，跳过重复setup
+[2026-02-16 03:51:01,622][root][INFO] - 🔧 [Test Phase] 漂移检测器已重置，准备进行在线检测与适应
+[2026-02-16 03:51:03,426][root][ERROR] - ❌ 训练失败: 'FlowBertMultiview' object has no attribute 'test_attack_family_probs'
+Traceback (most recent call last):
+  File "/tmp/pycharm_project_982/src/models/flow_bert_multiview/train.py", line 247, in main
+    trainer_test.test(best_model, datamodule=datamodule)
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 821, in test
+    return call._call_and_handle_interrupt(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/call.py", line 49, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 864, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path, weights_only=weights_only)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 1079, in _run
+    results = self._run_stage()
+              ^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/trainer.py", line 1116, in _run_stage
+    return self._evaluation_loop.run()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/loops/utilities.py", line 179, in _decorator
+    return loop_run(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 146, in run
+    self._evaluation_step(batch, batch_idx, dataloader_idx, dataloader_iter)
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/loops/evaluation_loop.py", line 441, in _evaluation_step
+    output = call._call_strategy_hook(trainer, hook_name, *step_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/trainer/call.py", line 329, in _call_strategy_hook
+    output = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/pytorch_lightning/strategies/strategy.py", line 425, in test_step
+    return self.lightning_module.test_step(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/pycharm_project_982/src/models/flow_bert_multiview/models/flow_bert_multiview.py", line 1946, in test_step
+    outputs = self._shared_step(batch, batch_idx, stage="test", return_outputs=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/pycharm_project_982/src/models/flow_bert_multiview/models/flow_bert_multiview.py", line 1741, in _shared_step
+    self._compute_and_log_attack_family_batch_metrics(stage, outputs, batch, batch_size)
+  File "/tmp/pycharm_project_982/src/models/flow_bert_multiview/models/flow_bert_multiview.py", line 1844, in _compute_and_log_attack_family_batch_metrics
+    self.test_attack_family_probs.append(attack_family_probs.detach().cpu())
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/envs/TangYuJie_cuda121/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1729, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'FlowBertMultiview' object has no attribute 'test_attack_family_probs'. Did you mean: 'test_attack_family_preds'?

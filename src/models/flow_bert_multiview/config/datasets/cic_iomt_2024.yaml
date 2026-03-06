@@ -1,0 +1,212 @@
+name: CIC-IoMT-2024
+
+flow_data_path: "./processed_data/CIC-IoMT-2024-session-srcIP_srcPort_dstIP_dstPort_proto/all_embedded_flow.csv"
+session_split_path: "./processed_data/CIC-IoMT-2024-session-srcIP_srcPort_dstIP_dstPort_proto/all_split_session.csv"
+
+# 53端口和dns服务的流量也被过滤掉，因为 DNS 已经通过域名反查特征被充分利用
+# 而且这个数据并不做 DNS 流量分类任务，比如检测 DNS 隧道等
+exclude_ports: [53]
+exclude_services: ["dns"]
+
+# 对于CIC-IoMT-2024数据集，类别分布如下：
+# ```
+# label
+# malicious_MQTT-DDoS-Connect_Flood           2730710
+# malicious_TCP_IP-DDoS-TCP                   2322590
+# malicious_TCP_IP-DoS-TCP                     656960
+# malicious_Recon-Port_Scan                    211788
+# malicious_TCP_IP-DDoS-UDP                    165723
+# malicious_MQTT-DoS-Connect_Flood             145529
+# malicious_TCP_IP-DoS-UDP                      58170
+# malicious_MQTT-DDoS-Publish_Flood             51075
+# malicious_Recon-OS_Scan                       30974
+# benign_active                                 25010
+# benign_idle                                   14585
+# benign_unknown                                14125
+# malicious_Recon-VulScan                        4265
+# malicious_TCP_IP-DDoS-ICMP                     1812
+# malicious_ARP_Spoofing                         1359
+# malicious_TCP_IP-DoS-ICMP                      1138
+# benign_interaction_Ecobee_Camera                824
+# malicious_MQTT-Malformed_Data                   789
+# benign_power                                    389
+# malicious_MQTT-DoS-Publish_Flood                383
+# benign_interaction_Owltron_Camera               354
+# benign_interaction_M1T_Camera                   165
+# benign_interaction_Singcall                      72
+# malicious_Recon-Ping_Sweep                       44
+# benign_interaction_Multifunctional_Pager         33
+# benign_interaction_Blink_Camera                  32
+# benign_interaction_SenseU                         5
+# ```
+
+# 明确声明：加载数据的时候，过滤这些类别的流量
+# 下面三个攻击类比的样本太少，影响训练效果，直接排除掉
+excluded_classes:
+  - malicious_Recon-Ping_Sweep
+  - malicious_MQTT-DoS-Publish_Flood
+  - malicious_MQTT-Malformed_Data
+
+# 合并某些类别以缓解类别不平衡问题
+merged_classes:
+  benign:
+    - benign_active
+    - benign_idle
+    - benign_unknown
+    - benign_power
+    - benign_interaction_Ecobee_Camera
+    - benign_interaction_Owltron_Camera
+    - benign_interaction_M1T_Camera
+    - benign_interaction_Singcall
+    - benign_interaction_Multifunctional_Pager
+    - benign_interaction_Blink_Camera
+    - benign_interaction_SenseU
+
+labels:
+  is_malicious:
+    type: binary
+    classes: [benign, malicious]
+
+  attack_family:
+    type: multiclass
+    classes:
+      - DoS
+      - DDoS
+      - Recon
+      - ARP_Spoofing
+      # - Malformed_Data # excluded_classes
+
+  attack_type:
+    type: multiclass
+    classes:
+      - MQTT-DDoS-Connect_Flood
+      # - MQTT-DDoS-Publish_Flood # excluded_classes
+
+      - TCP_IP-DDoS-TCP
+      - TCP_IP-DDoS-UDP
+      - TCP_IP-DDoS-ICMP
+      - TCP_IP-DoS-TCP
+      - TCP_IP-DoS-UDP
+      - TCP_IP-DoS-ICMP
+
+      - MQTT-DoS-Connect_Flood
+      - Recon-Port_Scan
+      - Recon-OS_Scan
+      - Recon-VulScan
+      - ARP_Spoofing
+      # - Malformed_Data # excluded_classes
+
+    parent: attack_family
+    parent_mapping:
+      MQTT-DDoS-Connect_Flood: DDoS
+      MQTT-DDoS-Publish_Flood: DDoS
+      TCP_IP-DDoS-TCP: DDoS
+      TCP_IP-DDoS-UDP: DDoS
+      TCP_IP-DDoS-ICMP: DDoS
+
+      TCP_IP-DoS-TCP: DoS
+      TCP_IP-DoS-UDP: DoS
+      TCP_IP-DoS-ICMP: DoS
+      MQTT-DoS-Connect_Flood: DoS
+      # MQTT-DoS-Publish_Flood: DoS # excluded_classes
+
+      Recon-Port_Scan: Recon
+      Recon-OS_Scan: Recon
+      Recon-VulScan: Recon
+      # Recon-Ping_Sweep: Recon # excluded_classes
+
+      ARP_Spoofing: ARP_Spoofing
+      # MQTT-Malformed_Data: Malformed_Data # excluded_classes
+
+
+tasks:
+  # ===============================
+  # ⭐ 主指标
+  # ===============================
+  primary: is_malicious
+
+  outputs:
+    # ===============================
+    # 1️⃣ is_malicious（二分类，主任务）
+    # ===============================
+    is_malicious:
+      weight: 1.0   # 主任务权重配置
+      type: binary
+      loss: bce     # 仅供提醒，使用 Binary Cross-Entropy（默认设置），适用于二分类 / OVR 多标签任务
+
+      # CIC-IoMT-2024数据集类别不均衡，需加权
+      # 类别      数量        占比
+      # Benign    55,594     0.87%
+      # Malicious 6,383,309 99.13%
+      # Benign/Malicious ≈ 0.0087
+      # 建议略微提高 benign 权重
+      class_weights: [1.0, 0.0087]    # [benign, malicious]
+
+      classifier:
+        hidden_dims: [256, 128]
+        dropout: 0.3
+        activation: gelu
+
+    # =====================================
+    # 2️⃣ attack_family（OVR，多类别语义）
+    # =====================================
+    attack_family:
+      weight: 0.5                 # ⭐ 不与 is_malicious 抢主导
+      type: multiclass   # 仅供提醒，攻击家族的多分类
+      strategy: ovr   # One-vs-Rest，多分类通过多个二分类（每个 attack_family 一个 BCE），适合类别不平衡场景
+      loss: bce   # 仅供提醒，使用 Binary Cross-Entropy（默认设置），适用于二分类 / OVR 多标签任务
+
+      # [neg, pos]
+      class_weights:
+        # DoS 频次 = 861,797
+        # DoS Rest 频次 = Malicious 频次 - DoS 频次
+        #                = 6,382,093 - 861,797
+        #                = 5,520,296
+        # rest/pos≈6.4
+        DoS:            [1.0, 6.4]
+
+        # DDoS 频次 = 5,271,910
+        # DDoS Rest 频次 = Malicious 频次 - DDoS 频次
+        #                 = 6,382,093 - 5,271,910
+        #                 = 1,110,183
+        # rest/pos≈0.21
+        DDoS:           [1.0, 0.21]
+
+        # Recon 频次 = 247,027
+        # Recon Rest 频次 = Malicious 频次 - Recon 频次
+        #                  = 6,382,093 - 247,027
+        #                  = 6,135,066
+        # rest/pos≈24.8
+        Recon:          [1.0, 24.8]
+
+        # ARP_Spoofing 频次 = 1,359
+        # ARP_Spoofing Rest 频次 = Malicious 频次 - ARP_Spoofing 频次
+        #                          = 6,382,093 - 1,359
+        #                          = 6,380,734
+        # rest/pos≈4696.0
+        ARP_Spoofing:   [1.0, 4696.0]
+        
+        # Malformed_Data = 0   （当前训练集中不存在，处于# excluded_classes）
+        # Malformed_Data: [1.0, 20.0]  # excluded_classes
+
+      classifier:
+        hidden_dims: [256]
+        dropout: 0.3
+        activation: gelu
+
+    # ==================================================
+    # 3️⃣ attack_type（⚠️ 强烈建议：分析用 / 可选）
+    # ==================================================
+    attack_type:    # 尚未实现，仅提醒预期功能
+      weight: 0.1                 # ⭐ 明确降权
+      type: multiclass
+      strategy: softmax
+      loss: ce
+
+      # 样本极端不平衡，自动权重即可
+      class_weights: auto
+
+      classifier:
+        hidden_dims: [256]
+        dropout: 0.3
+        activation: gelu
